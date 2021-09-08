@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   AddFormWrapper,
   InputWrapper,
@@ -11,6 +11,7 @@ import {
   PurposeImg,
   DropDownIcon,
   DropDownIconUp,
+  DropdownArrowContainer,
 } from "./FormElements";
 import ButtonElement from "../button/";
 import InputComponent from "../input/";
@@ -18,13 +19,33 @@ import { Purposes } from "../consts/purposeData";
 import { GiPayMoney } from "react-icons/gi";
 import { MdTitle } from "react-icons/md";
 import { BiSave } from "react-icons/bi";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SuccessModal from "./success-modal";
+import useForm from "./useForm";
 
 const AddForm = () => {
   const purposes = Purposes;
-  const [purposeOpen, setPurposeOpen] = useState(false);
+  const {
+    purposeOpen,
+    isOpen,
+    modalToggle,
+    handlePurposeOpen,
+    handleSubmit,
+    submitSuccess,
+  } = useForm();
+
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [purpose, setPurpose] = useState();
+
+  useEffect(() => {
+    if (submitSuccess) {
+      setTitle("");
+      setPrice("");
+      setPurpose();
+    }
+  }, [submitSuccess]);
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
@@ -41,15 +62,23 @@ const AddForm = () => {
 
   const handlePurpose = (purpose) => {
     setPurpose(purpose);
-    setPurposeOpen(false);
-  };
-
-  const handleSubmit = () => {
-    console.log("submited");
+    handlePurposeOpen();
   };
 
   return (
     <AddFormWrapper>
+      <ToastContainer
+        position="top-left"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+      />{" "}
+      {isOpen && <SuccessModal isOpen={isOpen} modalToggle={modalToggle} />}
       <InputWrapper>
         <InputComponent
           placeholder="Title"
@@ -70,9 +99,11 @@ const AddForm = () => {
       </InputWrapper>
       <DropdownParent>
         <Dropdown>
-          <PurposeDropdown onClick={() => setPurposeOpen(!purposeOpen)}>
+          <PurposeDropdown onClick={handlePurposeOpen}>
             <Label>{purpose ? purpose.title : "Purpose"}</Label>
-            {purposeOpen ? <DropDownIconUp /> : <DropDownIcon />}
+            <DropdownArrowContainer>
+              {purposeOpen ? <DropDownIconUp /> : <DropDownIcon />}
+            </DropdownArrowContainer>
           </PurposeDropdown>
           {purposeOpen && (
             <PurposesListContainer>
@@ -80,11 +111,13 @@ const AddForm = () => {
                 return (
                   <PurposeItem
                     key={item.id}
-                    style={{ borderBottom: `5px solid ${item.color}` }}
+                    style={{ borderLeft: `5px solid ${item.color}` }}
                     onClick={() => handlePurpose(item)}
                   >
                     <Label>{item.title}</Label>
-                    <PurposeImg>{item.icon}</PurposeImg>
+                    <PurposeImg style={{ color: `${item.color}` }}>
+                      {item.icon}
+                    </PurposeImg>
                   </PurposeItem>
                 );
               })}
@@ -92,7 +125,11 @@ const AddForm = () => {
           )}
         </Dropdown>
       </DropdownParent>
-      <ButtonElement icon={<BiSave />} text="submit" onClick={handleSubmit} />
+      <ButtonElement
+        icon={<BiSave />}
+        text="submit"
+        onClick={() => handleSubmit(title, price, purpose)}
+      />
     </AddFormWrapper>
   );
 };

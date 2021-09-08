@@ -13,6 +13,10 @@ export const Input = styled.input`
   border-bottom: 1px solid black;
   padding-top: 1.5vw;
   padding-left: 0.5rem;
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
   &:focus {
     outline: none;
     background: none;

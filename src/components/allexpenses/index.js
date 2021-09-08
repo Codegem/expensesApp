@@ -1,28 +1,34 @@
 import React from "react";
-import { CardWrapper } from "./expensecard/cardElements";
 import { AllExpensesContainer } from "./expensesElements";
-
+import { useSelector } from "react-redux";
+import ExpenseCard from "./expensecard";
+import { toast, ToastContainer } from "react-toastify";
 const AllExpenses = () => {
-  const expensesList = [
-    {
-      title: "Bought some stuff",
-      price: "20euro",
-      time: "1day ago",
-      logo: "...",
-    },
-    {
-      title: "Bought some stuff",
-      price: "20euro",
-      time: "1day ago",
-      logo: "...",
-    },
-  ];
+  const { expenseList: list } = useSelector((state) => state.expenses);
+  const notifySuccess = () => toast.success("Expense Deleted.");
 
   return (
     <AllExpensesContainer>
-      {expensesList.length
-        ? expensesList.map((expense, key) => {
-            return <CardWrapper key={key}>{expense.title}</CardWrapper>;
+      <ToastContainer
+        position="top-left"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+      />{" "}
+      {list.length !== 0
+        ? list.map((expense, key) => {
+            return (
+              <ExpenseCard
+                key={key}
+                expense={expense}
+                notifySuccess={notifySuccess}
+              />
+            );
           })
         : null}
     </AllExpensesContainer>

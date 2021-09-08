@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { InputWrapper, Input, InputImg } from "./InputComponent";
 
-const InputComponent = ({ type, name, placeholder, icon }) => {
-  const [query, setQuery] = useState("");
+const InputComponent = ({ type, name, placeholder, icon, onChange, value }) => {
   return (
     <InputWrapper>
       <Input
         type={type}
         name={name}
         placeholder={placeholder}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        value={value}
+        onChange={onChange}
       />
       <InputImg>{icon}</InputImg>
     </InputWrapper>
