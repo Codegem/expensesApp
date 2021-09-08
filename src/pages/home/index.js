@@ -1,11 +1,11 @@
 import React from "react";
-import AddPage from "../../components/add";
+import AddForm from "../../components/add-form/";
 import AllExpenses from "../../components/allexpenses";
 import { Home } from "./HomeComponents";
 const index = () => {
   return (
     <Home>
-      {window.location.pathname === "/" ? <AllExpenses /> : <AddPage />}
+      {window.location.pathname === "/" ? <AllExpenses /> : <AddForm />}
     </Home>
   );
 };
