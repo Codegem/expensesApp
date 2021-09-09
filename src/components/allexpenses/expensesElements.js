@@ -5,6 +5,15 @@ export const AllExpensesContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 90vw;
-  height: 20vh;
+  max-height: 80vw;
+  width: 100%;
+  position: relative;
+  overflow-y: scroll;
+  @media screen and (max-width: 479px) {
+    min-height: 100vh;
+    margin-top: -10vh;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
