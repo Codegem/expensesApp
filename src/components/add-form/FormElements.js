@@ -5,6 +5,7 @@ export const AddFormWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 35vw;
 `;
 
 export const PurposeImg = styled.div`
@@ -28,7 +29,7 @@ export const ModalBody = styled.div`
 export const ButtonWrapper = styled.div`
   position: fixed;
   width: 20%;
-  top: 30%;
+  top: 15%;
   display: flex;
   justify-content: space-between;
   @media screen and (max-width: 479px) {
