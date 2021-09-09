@@ -1,4 +1,8 @@
-import { ADD_EXPENSE, DELETE_EXPENSE } from "../action-types/expenses";
+import {
+  ADD_EXPENSE,
+  DELETE_EXPENSE,
+  QUERY_EXPENSE,
+} from "../action-types/expenses";
 
 // local storage
 const initialList = () => {
@@ -35,6 +39,13 @@ export const expenseReducer = (state = initialState, action) => {
       return {
         ...state,
         expenseList: updatedList,
+      };
+    }
+    case QUERY_EXPENSE: {
+      const { query } = action;
+      return {
+        ...state,
+        query,
       };
     }
     default:

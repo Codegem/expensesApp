@@ -32,7 +32,32 @@ const useForm = () => {
       dispatch(addExpense(data));
       modalToggle();
       setSubmitSuccess(true);
+      setTitle("");
+      setPrice("");
+      setPurpose();
     }
+  };
+
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [purpose, setPurpose] = useState("");
+
+  const handleTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handlePrice = (e) => {
+    const value = parseFloat(e.target.value);
+    if (isNaN(value)) {
+      setPrice("");
+      return;
+    }
+    setPrice(value);
+  };
+
+  const handlePurpose = (purpose) => {
+    setPurpose(purpose);
+    handlePurposeOpen();
   };
 
   return {
@@ -42,6 +67,12 @@ const useForm = () => {
     handlePurposeOpen,
     handleSubmit,
     submitSuccess,
+    handleTitle,
+    handlePrice,
+    handlePurpose,
+    title,
+    price,
+    purpose,
   };
 };
 
