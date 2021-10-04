@@ -6,7 +6,11 @@ import { Home } from "./HomeComponents";
 const index = () => {
   return (
     <Home>
-      {window.location.pathname === "/" ? <AllExpenses /> : <AddForm />}
+      {window.location.pathname === "/expensesApp/" ? (
+        <AllExpenses />
+      ) : (
+        <AddForm />
+      )}
     </Home>
   );
 };
