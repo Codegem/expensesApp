@@ -19,21 +19,19 @@ const HeaderComponent = () => {
   return (
     <Nav>
       <Header>
-        <Side>
-          <ButtonElement
-            icon={<Logo />}
-            link={true}
-            path="/"
-            buttonClass="delete"
-            size={3}
-          />
-          <ButtonElement
-            text="Add"
-            icon={<Icon />}
-            link={true}
-            path="/add-expenses"
-          />
-        </Side>
+        <ButtonElement
+          icon={<Logo />}
+          link={true}
+          path="/expensesApp/"
+          buttonClass="delete"
+          size={3}
+        />
+        <ButtonElement
+          text="Add"
+          icon={<Icon />}
+          link={true}
+          path="/expensesApp/add-expenses"
+        />
         <Input
           name="Search"
           type="text"
